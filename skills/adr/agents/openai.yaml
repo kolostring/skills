@@ -1,0 +1,3 @@
+interface:
+  display_name: "CFD ADR"
+  short_description: "ADR format and threshold"

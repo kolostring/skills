@@ -1,0 +1,5 @@
+interface:
+  display_name: "CFD Grill"
+  short_description: "Grill a plan after orienting from ADRs"
+policy:
+  allow_implicit_invocation: false

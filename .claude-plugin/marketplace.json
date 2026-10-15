@@ -1,0 +1,12 @@
+{
+  "name": "skills",
+  "owner": { "name": "Yoel Rodriguez" },
+  "description": "Team skills for AI-assisted development.",
+  "plugins": [
+    {
+      "name": "cfd",
+      "source": "./",
+      "description": "Context-first development on top of Matt Pocock's skills: /cfd:init, /cfd:start, /cfd:close, /cfd:spec, /cfd:tickets, /cfd:adr, /cfd:grill, /cfd:implement, plus /cfd:tdd, /cfd:code-review and the rest."
+    }
+  ]
+}

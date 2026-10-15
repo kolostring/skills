@@ -1,0 +1,5 @@
+interface:
+  display_name: "CFD Start"
+  short_description: "Orient from status, ADRs and conventions"
+policy:
+  allow_implicit_invocation: false

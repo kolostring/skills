@@ -1,0 +1,5 @@
+interface:
+  display_name: "CFD Spec"
+  short_description: "Write a spec after orienting from the docs"
+policy:
+  allow_implicit_invocation: false

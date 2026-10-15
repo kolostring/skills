@@ -1,0 +1,5 @@
+interface:
+  display_name: "CFD Report"
+  short_description: "Summarize the session for a timesheet"
+policy:
+  allow_implicit_invocation: false

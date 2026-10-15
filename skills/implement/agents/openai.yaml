@@ -1,0 +1,5 @@
+interface:
+  display_name: "CFD Implement"
+  short_description: "Build a ticket test-first, stopping for ADRs"
+policy:
+  allow_implicit_invocation: false

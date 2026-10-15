@@ -1,0 +1,5 @@
+interface:
+  display_name: "CFD Close"
+  short_description: "Update status, route corrections, capture ADRs"
+policy:
+  allow_implicit_invocation: false
