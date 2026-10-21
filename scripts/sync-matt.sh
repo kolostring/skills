@@ -5,20 +5,23 @@
 # Patches (keep this list in sync with UPSTREAM.md):
 #   1. References point at the CFD skills: /to-spec, /to-tickets, /setup-matt-pocock-skills,
 #      /grill-with-docs and /implement become /cfd:spec, /cfd:tickets, /cfd:init, /cfd:grill
-#      and /cfd:implement.
+#      and /cfd:implement, and /implement-spec becomes /cfd:implement.
 #   2. References to code-review become cfd:code-review, because Claude Code's built-in
 #      /code-review takes the short name.
 #   3. The wrapped skills get `user-invocable: false`, so each job has one entry point.
 #      The CFD wrappers read their SKILL.md directly.
 #   4. Replaced skills are not vendored: the CFD skill of the same name takes their place.
+#   5. Excluded skills are not vendored: implement-spec (cfd:implement orchestrates several
+#      tickets), ask-matt, to-questionnaire, wizard and grill-me (cfd:grill covers it).
 set -euo pipefail
 
 ref=${1:-main}
 root=$(cd "$(dirname "$0")/.." && pwd)
 list="$root/scripts/matt-skills.txt"
-own="start close init spec tickets adr report grill implement"
+own="start close init spec tickets adr report grill implement prototype"
 wrapped="to-spec to-tickets setup-matt-pocock-skills grill-with-docs"
-replaced="implement"
+replaced="implement prototype"
+excluded="implement-spec ask-matt to-questionnaire wizard grill-me"
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
@@ -36,7 +39,7 @@ fi
 # Copy every skill upstream ships in its plugin.
 while read -r path; do
   name=$(basename "$path")
-  case " $replaced " in *" $name "*) continue ;; esac
+  case " $replaced $excluded " in *" $name "*) continue ;; esac
   for o in $own; do
     [ "$name" = "$o" ] && { echo "Upstream skill '$name' collides with a CFD skill" >&2; exit 1; }
   done
@@ -52,6 +55,7 @@ while read -r name; do
     s{(?<![\w./-])/to-tickets(?![\w-])}{/cfd:tickets}g;
     s{(?<![\w./-])/setup-matt-pocock-skills(?![\w-])}{/cfd:init}g;
     s{(?<![\w./-])/grill-with-docs(?![\w-])}{/cfd:grill}g;
+    s{(?<![\w./-])/implement-spec(?![\w-])}{/cfd:implement}g;
     s{(?<![\w./-])/implement(?![\w-])}{/cfd:implement}g;
     s{(?<![\w./-])/code-review(?![\w-])}{/cfd:code-review}g;
     s{`code-review`}{`cfd:code-review`}g;

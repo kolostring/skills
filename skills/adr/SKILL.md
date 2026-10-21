@@ -22,6 +22,8 @@ It needs at least one real alternative that was rejected. A rule with no alterna
 
 Write the ADR **before** the code that depends on it, then stop for the user to review it.
 
+A look or tuning whose acceptance waits on a human verdict is still open: record each attempt as a findings entry where the project keeps findings (default `docs/findings/<topic>.md`). Once the verdict accepts the result, write one ADR for it, superseding any accepted ADR it changes (see "Changing a decision"). An ADR still `Proposed` may be amended in place instead.
+
 ## Location and name
 
 - Use the existing ADR folder (`docs/adr/` or `docs/decisions/`); create `docs/adr/` if neither exists.

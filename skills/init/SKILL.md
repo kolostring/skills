@@ -22,7 +22,15 @@ If `docs/agents/issue-tracker.md` is missing, read `setup-matt-pocock-skills`' i
 Draft each item below, skipping any that already exists (extend existing files rather than replacing them). Show the drafts to the user and apply their edits before writing.
 
 1. **Initial architecture ADR**, in the `cfd:adr` format, at `<ADR folder>/<today>-initial-architecture.md`: the layers, modules and data flow the layout implies, and the stack with versions from the dependency files. Mark each inference `(inferred: confirm)`. Skip it when the repo already has ADRs.
-2. **`docs/CONVENTIONS.md`**: 5 to 10 conventions the layout and dependency choices imply, each marked `(inferred: confirm)`, under the heading `# Conventions`.
+2. **`docs/CONVENTIONS.md`**: 5 to 10 conventions the layout and dependency choices imply, each marked `(inferred: confirm)`, under the heading `# Conventions`. End it with two empty sections:
+
+   ```md
+   ## Process
+   How agents work in this repo: rules from corrections about the workflow rather than the code.
+
+   ## Subagent briefs
+   Gotchas every implementer subagent needs: checks the hook runs that one command misses, shell quirks.
+   ```
 3. **`CODING_STANDARDS.md`** (or a new section in the existing standards file), read by the reviewer:
 
    ```md
@@ -41,7 +49,8 @@ Draft each item below, skipping any that already exists (extend existing files r
    - Code is the truth about what the system does; ADRs are the truth about why. When they disagree, stop and flag it.
    - A decision that constrains future code gets an ADR (`cfd:adr` format) before the code. Mid-implementation, stop and propose the ADR before writing that code.
    - As a subagent, never make such a decision: stop and report it, with options and a recommendation, to the parent, which asks the user.
-   - When corrected on a pattern, record the rule: a check if mechanical, `docs/CONVENTIONS.md` if a judgement call.
+   - When corrected on a pattern, record the rule: a check if mechanical, `docs/CONVENTIONS.md` if a judgement call, its `## Process` section if it is about how the agent works.
+   - Findings live in `docs/findings/<topic>.md`, one dated entry per attempt at a look or tuning: what was tried, the user's verdict in their words, what is still open.
    - Sessions: `/cfd:start` to begin, `/cfd:close` to end.
    ```
 6. **Second agents file**: when only one of `CLAUDE.md` / `AGENTS.md` exists, create the other as a symlink to it (`ln -s CLAUDE.md AGENTS.md`), so every agent reads the same rules.

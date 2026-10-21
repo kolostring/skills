@@ -74,16 +74,16 @@ At every session start in a set-up repo, a hook loads the status snapshot and th
 
 | Source | Skills |
 | --- | --- |
-| CFD (this repo) | `init`, `start`, `close`, `grill`, `spec`, `tickets`, `implement`, `adr`, `report` |
+| CFD (this repo) | `init`, `start`, `close`, `grill`, `spec`, `tickets`, `implement`, `adr`, `report`, `prototype` |
 | Matt Pocock, vendored | everything listed in `scripts/matt-skills.txt` |
 
-`init`, `grill`, `spec` and `tickets` wrap Matt's `setup-matt-pocock-skills`, `grill-with-docs`, `to-spec` and `to-tickets`, which are hidden from the `/` menu so each job has one entry point. `implement` replaces Matt's skill of the same name.
+`init`, `grill`, `spec` and `tickets` wrap Matt's `setup-matt-pocock-skills`, `grill-with-docs`, `to-spec` and `to-tickets`, which are hidden from the `/` menu so each job has one entry point. `implement` and `prototype` replace Matt's skills of the same names.
 
 Use `/cfd:code-review` and `/cfd:init` in full: Claude Code's built-in `/code-review` and `/init` take the short names.
 
 ## Maintaining
 
-- **CFD skills** (`skills/{init,start,close,grill,spec,tickets,implement,adr,report}`): edit them directly.
+- **CFD skills** (`skills/{init,start,close,grill,spec,tickets,implement,adr,report,prototype}`): edit them directly.
 - **Matt's skills**: never edit them. Run `scripts/sync-matt.sh <tag>` to update, review the diff, and commit. `UPSTREAM.md` records the version and the patches the script applies.
 - **Release**: bump `version` in `.claude-plugin/plugin.json`. Claude Code and Codex install a new copy only when it changes. Run `claude plugin validate .` before pushing.
 - **Portability**: skills refer to each other with paths relative to their own folder (`../to-spec/SKILL.md`), never `${CLAUDE_PLUGIN_ROOT}`, so they work in every agent.

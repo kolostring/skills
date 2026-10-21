@@ -27,9 +27,10 @@ Work through every step; the session is closed when all four completion conditio
 
    Done when the date is today and every ticket touched this session appears.
 
-2. **Corrections.** List every time the user corrected a pattern this session. Route each one:
+2. **Corrections.** List every time the user corrected a pattern or the way you worked this session. Route each one into the repo, where subagents and other agents read it:
    - **Mechanical** (a banned API, an import shape, a file location): propose a lint rule, test, or check, and build it only on the user's yes.
-   - **Judgement call:** add one line to `docs/CONVENTIONS.md`.
+   - **Judgement call** about the code: add one line to `docs/CONVENTIONS.md`.
+   - **Process** (how the agent works: what to verify before asking for a verdict, where prototypes live, which tools to use): add one line to the `## Process` section of `docs/CONVENTIONS.md`. When the rule would hold in any repo, also name the CFD skill it belongs to in the hand-off, for the user to carry to the plugin.
 
    Done when every correction has a destination.
 
