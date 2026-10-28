@@ -33,5 +33,5 @@ fi
 echo "=== ADRs (loaded at session start) ==="
 bash "$(dirname "$0")/../skills/adr/adr-index.sh"
 echo
-echo "Start work with /cfd:start [ticket]; end it with /cfd:close."
+echo "Start work with /cfd:start [spec or ticket]; end it with /cfd:close."
 exit 0

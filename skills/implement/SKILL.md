@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 Paths in this skill are relative to its folder.
 
-1. **Orient.** Running as a subagent: follow [SUBAGENT.md](SUBAGENT.md) instead of this file. Otherwise, if this session hasn't run `cfd:start` for this work, follow `../start/ORIENT.md` and load the ticket as step 3 of `../start/SKILL.md` describes.
+1. **Orient.** Running as a subagent: follow [SUBAGENT.md](SUBAGENT.md) instead of this file. Otherwise, if this session hasn't run `cfd:start` for this work, follow `../start/ORIENT.md` and load the ticket as step 4 of `../start/SKILL.md` describes. Given a spec rather than a ticket, follow `../start/SKILL.md` from step 3 instead.
 
 2. **Build test-first.** Use the `tdd` skill (`../tdd/SKILL.md`) at the seams the ticket or spec agreed. Before the first edit, read the pre-commit hook (`.git/hooks/pre-commit`, or what `.pre-commit-config.yaml`, husky or lefthook configures) and note every check it runs. Run single test files as you go, and once at the end run exactly what the hook runs. With no hook, run the type checker and the full test suite. Done when every check passes; keep its output for the review.
 
@@ -33,3 +33,9 @@ As the orchestrator, delegating tickets to subagents:
 - Branches and worktrees follow the repo's `CLAUDE.md` / `AGENTS.md`. By default, run tickets one at a time on the current branch, in dependency order: each subagent builds its ticket, then you run steps 5 to 7 and commit it before the next one starts.
 - Run tickets in parallel worktrees only when the repo allows worktrees and the tickets touch disjoint files. Before merging each worktree branch, check its `git diff --stat` holds only that ticket's files, then merge in dependency order.
 - Brief each subagent with the ticket reference and the path to [SUBAGENT.md](SUBAGENT.md), nothing more: project gotchas belong in the `## Subagent briefs` section of `docs/CONVENTIONS.md`, which it reads.
+- Pick each subagent's model from the ticket's difficulty, where the agent lets you choose one:
+  - **Smallest tier (Haiku)**: mechanical tickets. The ticket names its pattern to mirror and copies it closely, with no new design (a rename, a config or copy change, one more case in an existing table).
+  - **Middle tier (Sonnet)**: everything else that fits the existing ADRs and conventions. This is the default.
+  - **Largest tier (Opus)**: only after the user agrees, for a ticket that designs a new module or boundary, cuts across many files, or left open questions at planning. Otherwise build that ticket yourself.
+
+  When a subagent stops on a decision, conflict or failing check it could not resolve, retry once on the next tier up before building the ticket yourself.

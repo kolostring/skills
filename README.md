@@ -62,10 +62,10 @@ At every session start in a set-up repo, a hook loads the status snapshot and th
 
 ## Workflow
 
-1. `/cfd:start [ticket]`: orient from status, ADRs and conventions; load the ticket.
+1. `/cfd:start [spec or ticket]`: orient from status, ADRs and conventions. With no argument, it lists the open specs with their progress and asks which one to implement or continue.
 2. `/cfd:grill`: settle open decisions; terms land in `GLOSSARY.md`, decisions in ADRs (`/cfd:adr`).
 3. `/cfd:spec`, then `/cfd:tickets`: each ticket lists the ADRs to read and a file to mirror.
-4. Per ticket, in a fresh session: `/cfd:start <ticket>`, then `/cfd:implement`. It builds test-first and stops to propose an ADR when a new decision comes up.
+4. `/cfd:start <spec>` (or pick one from the list): the session orchestrates `/cfd:implement` over the spec's tickets. Subagents build each ticket on a model sized to its difficulty, test-first, and stop to propose an ADR when a new decision comes up. The orchestrator reviews and commits. For one ticket, run `/cfd:start <ticket>` instead.
 5. `/cfd:code-review` in a fresh session, then `/cfd:pr`.
 6. `/cfd:close`: status, corrections, decisions.
 7. `/cfd:report`: one short list of the session's work, for your timesheet.

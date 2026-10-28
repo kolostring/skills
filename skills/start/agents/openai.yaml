@@ -1,5 +1,5 @@
 interface:
   display_name: "CFD Start"
-  short_description: "Orient from status, ADRs and conventions"
+  short_description: "Orient, then pick a spec to implement or continue"
 policy:
   allow_implicit_invocation: false
