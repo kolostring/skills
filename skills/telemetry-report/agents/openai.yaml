@@ -1,0 +1,3 @@
+interface:
+  display_name: "CFD Telemetry Report"
+  short_description: "Agent token usage per task, skill and session"

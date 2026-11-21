@@ -1,8 +1,7 @@
 ---
 name: grill
-description: Grill a plan context-first: orient from ADRs and conventions, interview the user until no decision is open, and record terms in GLOSSARY.md and decisions as ADRs.
+description: "Grill a plan context-first: orient from ADRs and conventions, interview the user until no decision is open, and record terms in GLOSSARY.md and decisions as ADRs. Use when the user wants a plan, design or idea grilled or stress-tested, or uses any 'grill' trigger phrase."
 argument-hint: "[plan or idea]"
-disable-model-invocation: true
 ---
 
 Paths in this skill are relative to its folder.

@@ -32,7 +32,7 @@ As the orchestrator, delegating tickets to subagents:
 - Before the first ticket, commit any uncommitted baseline work, so each ticket's diff holds only its own changes.
 - Branches and worktrees follow the repo's `CLAUDE.md` / `AGENTS.md`. By default, run tickets one at a time on the current branch, in dependency order: each subagent builds its ticket, then you run steps 5 to 7 and commit it before the next one starts.
 - Run tickets in parallel worktrees only when the repo allows worktrees and the tickets touch disjoint files. Before merging each worktree branch, check its `git diff --stat` holds only that ticket's files, then merge in dependency order.
-- Brief each subagent with the ticket reference and the path to [SUBAGENT.md](SUBAGENT.md), nothing more: project gotchas belong in the `## Subagent briefs` section of `docs/CONVENTIONS.md`, which it reads.
+- Start each subagent with a fresh context window, never a fork, one per ticket (a retry gets a new one too). Brief it with the ticket reference and the path to [SUBAGENT.md](SUBAGENT.md), nothing more: project gotchas belong in the `## Subagent briefs` section of `docs/CONVENTIONS.md`, which it reads.
 - Pick each subagent's model from the ticket's difficulty, where the agent lets you choose one:
   - **Smallest tier (Haiku)**: mechanical tickets. The ticket names its pattern to mirror and copies it closely, with no new design (a rename, a config or copy change, one more case in an existing table).
   - **Middle tier (Sonnet)**: everything else that fits the existing ADRs and conventions. This is the default.

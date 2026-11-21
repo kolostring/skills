@@ -10,7 +10,7 @@ Paths in this skill are relative to its folder.
 1. Orient by following [ORIENT.md](ORIENT.md).
 
 2. **Pick the focus.**
-   - A ticket reference was passed: that ticket alone. Go to step 4.
+   - A ticket reference was passed: that ticket alone. Go to step 4. If the reference could name more than one ticket or spec, ask which.
    - A spec reference was passed: that spec.
    - Otherwise, list the open specs the way `docs/agents/issue-tracker.md` describes (local tracker: every `.scratch/<feature-slug>/spec.md`). For each one, show:
      - its title and reference;

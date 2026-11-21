@@ -1,5 +1,4 @@
 diagnosing-bugs
-grill-with-docs
 triage
 improve-codebase-architecture
 setup-matt-pocock-skills
@@ -12,7 +11,6 @@ domain-modeling
 codebase-design
 code-review
 pr
-retro
 grilling
 handoff
 teach

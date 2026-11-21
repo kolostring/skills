@@ -57,6 +57,7 @@ Don't install Matt's plugin or upstream CFD's plugin alongside this one: their s
 | `CODING_STANDARDS.md` | `/cfd:init` | What `/cfd:code-review` checks |
 | `GLOSSARY.md` | `/cfd:grill` | Domain terms |
 | `.claude/STATUS.local.md` | `/cfd:close` | Snapshot for the next session; gitignored |
+| `.cfd/telemetry/` | `/cfd:telemetry-report` | Usage dashboard and its history; gitignored |
 
 At every session start in a set-up repo, a hook loads the status snapshot and the ADR list, and warns when the status is older than the last commit. In a git repo that isn't set up, it suggests `/cfd:init`.
 
@@ -70,20 +71,23 @@ At every session start in a set-up repo, a hook loads the status snapshot and th
 6. `/cfd:close`: status, corrections, decisions.
 7. `/cfd:report`: one short list of the session's work, for your timesheet.
 
+Monthly, `/cfd:telemetry-report` shows whether the context files are doing their job: context at the first request, tokens before the first edit, and medians before and after each change to them. `publish` shares counters-only reports on a `cfd-telemetry` branch (private repos only); `team` merges them.
+
 ## Skills
 
 | Source | Skills |
 | --- | --- |
-| CFD (this repo) | `init`, `start`, `close`, `grill`, `spec`, `tickets`, `implement`, `adr`, `report`, `prototype` |
+| CFD (this repo) | `init`, `start`, `close`, `grill`, `spec`, `tickets`, `implement`, `adr`, `report`, `prototype`, `telemetry-report` |
 | Matt Pocock, vendored | everything listed in `scripts/matt-skills.txt` |
 
-`init`, `grill`, `spec` and `tickets` wrap Matt's `setup-matt-pocock-skills`, `grill-with-docs`, `to-spec` and `to-tickets`, which are hidden from the `/` menu so each job has one entry point. `implement` and `prototype` replace Matt's skills of the same names.
+`init`, `grill`, `spec` and `tickets` wrap Matt's `setup-matt-pocock-skills`, `grilling`, `to-spec` and `to-tickets`, which are hidden from the `/` menu so each job has one entry point. `domain-modeling` and `codebase-design` are hidden too: `grill`, `adr` and `improve-codebase-architecture` load them. `implement` and `prototype` replace Matt's skills of the same names. `telemetry-report` comes from [Context-First Development](https://github.com/albertomarturelo/context-first-development): a local dashboard of agent token usage per day, task, skill and session, built from the logs Claude Code, Codex and Copilot CLI already keep.
 
 Use `/cfd:code-review` and `/cfd:init` in full: Claude Code's built-in `/code-review` and `/init` take the short names.
 
 ## Maintaining
 
-- **CFD skills** (`skills/{init,start,close,grill,spec,tickets,implement,adr,report,prototype}`): edit them directly.
+- **CFD skills** (`skills/{init,start,close,grill,spec,tickets,implement,adr,report,prototype,telemetry-report}`): edit them directly, except `telemetry-report/scripts/` and `telemetry-report/references/`.
 - **Matt's skills**: never edit them. Run `scripts/sync-matt.sh <tag>` to update, review the diff, and commit. `UPSTREAM.md` records the version and the patches the script applies.
+- **Telemetry scripts**: never edit them. Run `scripts/sync-cfd.sh <ref>` to update, then diff `telemetry-report/SKILL.md` against the upstream one it links.
 - **Release**: bump `version` in `.claude-plugin/plugin.json`. Claude Code and Codex install a new copy only when it changes. Run `claude plugin validate .` before pushing.
 - **Portability**: skills refer to each other with paths relative to their own folder (`../to-spec/SKILL.md`), never `${CLAUDE_PLUGIN_ROOT}`, so they work in every agent.

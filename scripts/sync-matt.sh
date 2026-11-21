@@ -9,19 +9,23 @@
 #   2. References to code-review become cfd:code-review, because Claude Code's built-in
 #      /code-review takes the short name.
 #   3. The wrapped skills get `user-invocable: false`, so each job has one entry point.
-#      The CFD wrappers read their SKILL.md directly.
+#      The CFD wrappers read their SKILL.md directly. grilling is hidden too, and its
+#      description points at cfd:grill: it stays model-invocable because triage and
+#      wayfinder call it through the Skill tool. domain-modeling and codebase-design are
+#      hidden as well: other skills load them, and cfd:grill and cfd:adr are the entry points.
 #   4. Replaced skills are not vendored: the CFD skill of the same name takes their place.
 #   5. Excluded skills are not vendored: implement-spec (cfd:implement orchestrates several
-#      tickets), ask-matt, to-questionnaire, wizard and grill-me (cfd:grill covers it).
+#      tickets), ask-matt, to-questionnaire, wizard, grill-me and grill-with-docs (cfd:grill
+#      covers both), and retro (cfd:close routes corrections).
 set -euo pipefail
 
 ref=${1:-main}
 root=$(cd "$(dirname "$0")/.." && pwd)
 list="$root/scripts/matt-skills.txt"
-own="start close init spec tickets adr report grill implement prototype"
-wrapped="to-spec to-tickets setup-matt-pocock-skills grill-with-docs"
+own="start close init spec tickets adr report grill implement prototype telemetry-report"
+hidden="to-spec to-tickets setup-matt-pocock-skills grilling domain-modeling codebase-design"
 replaced="implement prototype"
-excluded="implement-spec ask-matt to-questionnaire wizard grill-me"
+excluded="implement-spec ask-matt to-questionnaire wizard grill-me grill-with-docs retro"
 
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
@@ -62,10 +66,14 @@ while read -r name; do
   ' {} +
 done < "$list"
 
-# Patch 3: hide the wrapped skills from the / menu.
-for name in $wrapped; do
+# Patch 3: hide the wrapped and helper skills from the / menu.
+for name in $hidden; do
   perl -0pi -e 's/\A---\n/---\nuser-invocable: false\n/' "$root/skills/$name/SKILL.md"
 done
+perl -0pi -e '
+  s{^description: .*$}{description: The question-round loop that cfd:grill, triage and wayfinder run. Use when another skill says to call it. When the user wants a plan grilled or stress-tested, use cfd:grill instead.}m
+    or die "grilling: description not found\n";
+' "$root/skills/grilling/SKILL.md"
 
 sed -i -E "s/^- Version: .*/- Version: $version/; s/^- Commit: .*/- Commit: $sha/; s/^- Synced: .*/- Synced: $(date +%F)/" "$root/UPSTREAM.md"
 echo "Vendored mattpocock/skills $version ($sha): $(wc -l < "$list") skills"

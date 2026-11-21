@@ -39,7 +39,7 @@ Draft each item below, skipping any that already exists (extend existing files r
    - A new dependency, pattern or strategy that meets the `cfd:adr` threshold and has no ADR is a finding.
    - Conventions live in `docs/CONVENTIONS.md`.
    ```
-4. **`.gitignore`**: add `.claude/STATUS.local.md`.
+4. **`.gitignore`**: add `.claude/STATUS.local.md` and `.cfd/` (the `cfd:telemetry-report` output).
 5. **Context-first section** in the agent instructions file (`CLAUDE.md` if it exists, else `AGENTS.md`), below the `## Agent skills` block. Replace `<ADR folder>`:
 
    ```md
